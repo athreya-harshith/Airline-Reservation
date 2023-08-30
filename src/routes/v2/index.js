@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// here for demo have implemented the controller here itself
+// here for testing have implemented the controller here itself
 //in a cleaner level define the fuction corresoponding to it in the controller folder , 
 //import that here and continue
 router.get('/info',(req,res)=> {

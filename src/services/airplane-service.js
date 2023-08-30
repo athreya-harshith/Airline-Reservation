@@ -14,7 +14,7 @@ async function createAirplane(data)
    {
      // this error is received by the repository layer
     // uncomment this line to check error     //console.log(error);
-        // her we modified to check only for the Client Side Errors and if any other errors
+        // have modified to check only for the Client Side Errors and if any other errors
         //except client side error will be thown as Server error by the throw statement after the if block
         if(error.name == 'SequelizeValidationError')
         {
@@ -28,8 +28,8 @@ async function createAirplane(data)
         }
 
         throw new AppError('Cannot Create a new Airplane Object',StatusCodes.INTERNAL_SERVER_ERROR);
-        // what ever we throw here it will be received or thrown to the upper layer of it 
-        // upper layer or repository is services
+        // what ever is thrown here it will be received or thrown to the upper layer of it 
+        // upper layer of repository is services
         // similarly upper layer of services is controller 
    }
 }
