@@ -22,9 +22,14 @@ async function createAirplane(req,res)
     }
     catch(error)
     {
+        // the error object received here is the one that is thrown by the service layer
         ErrorResponse.message ='Something went wrong while creating Airplane'
         ErrorResponse.error = error;
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+        // previously we did like this here status code is hard coded 
+        // we are throwing an error object with some error code in the service layer
+        // this contains the error code hence we utilize it 
+        // return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+        return res.status(error.statusCode).json(ErrorResponse);
     }
 }
 module.exports = {createAirplane};
