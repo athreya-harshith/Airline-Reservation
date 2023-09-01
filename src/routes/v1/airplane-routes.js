@@ -5,5 +5,5 @@ const {AirplaneMiddlewares} = require('../../middlewares');
 // /api/v1/airplanes
 router.post('/',AirplaneMiddlewares.validateCreateRequest,
                 AirplaneController.createAirplane);
-
+router.get('/',AirplaneController.getAirplanes);
 module.exports = router;

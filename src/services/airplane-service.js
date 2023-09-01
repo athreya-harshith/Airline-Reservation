@@ -33,7 +33,16 @@ async function createAirplane(data)
         // similarly upper layer of services is controller 
    }
 }
-
+async function getAirplanes()
+{
+    try {
+        const airplane = await ariplaneRepository.getAll();
+        return airplane;
+    } catch (error) {
+        throw new AppError('Unable to get the airplanes ',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
 module.exports = {
-    createAirplane
+    createAirplane,
+    getAirplanes
 }
