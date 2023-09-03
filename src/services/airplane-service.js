@@ -42,7 +42,22 @@ async function getAirplanes()
         throw new AppError('Unable to get the airplanes ',StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+
+async function getAirplane(id)
+{
+    try {
+        const airplane = await ariplaneRepository.get(id);
+        return airplane;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND)
+        {
+            throw new AppError('Requested Airplane doesnot exists ',error.statusCode);
+        }
+        throw new AppError('Unable to get the requested Airplace',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
 module.exports = {
     createAirplane,
-    getAirplanes
+    getAirplanes,
+    getAirplane
 }
