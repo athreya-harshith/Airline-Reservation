@@ -34,6 +34,10 @@ class CrudRepository
                 id:data
             }
         });
+        if(!response)
+            {
+                throw new AppError('The Resource not found to delete',StatusCodes.NOT_FOUND);
+            }
         return response;
     }
 
