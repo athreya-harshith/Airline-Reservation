@@ -47,7 +47,7 @@ class CrudRepository
         if(!response)
         {
             // handling this error in crud-repository is better in general it will handle automatically
-            throw new AppError('Requested Resource Not Found',StatusCodes.NOT_FOUND);
+            throw new AppError('Requested Resource Not Found to fetch',StatusCodes.NOT_FOUND);
         }
         return response;
     }
@@ -60,12 +60,16 @@ class CrudRepository
 
     async update(id,data)// data is object {col:value,col:value,....}
     {
+        // console.log('running update method',id,'\n',data);
         const response = await this.model.update(data,{
             where:{
                 id:id
             }
-        })
+        });
+        if(!(response[0]))
+            throw new AppError('Requested Resource not found to update',StatusCodes.NOT_FOUND);
         return response;
+        
     }
 }
 

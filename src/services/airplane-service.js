@@ -70,9 +70,23 @@ async function destroyAirplane(id)
         throw new AppError('Cannot able to delete the airplane',StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+async function upadateAirplane(id,data)
+{
+    try {
+        const response = await ariplaneRepository.update(id,data);
+        return response;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND)
+        {
+            throw new AppError('Unable to update the airplane as the ariplane requested doesnot request',error.statusCode);
+        }
+        throw new AppError('Cannot able to update the airplane',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
-    destroyAirplane
+    destroyAirplane,
+    upadateAirplane
 }
