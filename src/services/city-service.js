@@ -39,7 +39,22 @@ async function destroyCity(id)
         throw new AppError('Cannot able to delete the City',StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+
+async function updateCity(id,data)
+{
+    try {
+        const response = await cityRepository.update(id,data);
+        return response;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND)
+        {
+            throw new AppError('Unable to update the city as the city requested doesnot exist',error.statusCode);
+        }
+        throw new AppError('Cannot able to update the city',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
 module.exports = {
     createCity,
-    destroyCity
+    destroyCity,
+    updateCity
 }
