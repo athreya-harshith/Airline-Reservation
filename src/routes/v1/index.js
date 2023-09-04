@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {InfoController} = require('../../controllers');
 const airplaneRoutes = require('./airplane-routes')
+const cityRoutes = require('./city-routes');
 // route.get('/info',(req,res)=>{
 //     res.send({msg:"OK"});
 // }); this is not compact one as there is a better implementation of this controller 
@@ -10,4 +11,5 @@ const airplaneRoutes = require('./airplane-routes')
  router.get('/info', InfoController.info);
 
 router.use('/airplanes',airplaneRoutes);
+router.use('/cities',cityRoutes);
 module.exports = router;

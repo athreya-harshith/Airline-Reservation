@@ -23,6 +23,7 @@ class CrudRepository
         // before it was not commented 
         
         // after commenting , added this : ->> if this throws an error its sent to services
+        console.log(data);
         const response = await this.model.create(data);
         return response;
     }
@@ -66,7 +67,7 @@ class CrudRepository
                 id:id
             }
         });
-        if(!(response[0]))
+        if(!(response[0]))// because it gives the data as an array 
             throw new AppError('Requested Resource not found to update',StatusCodes.NOT_FOUND);
         return response;
         
