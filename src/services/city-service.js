@@ -53,8 +53,19 @@ async function updateCity(id,data)
         throw new AppError('Cannot able to update the city',StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+
+async function getCities()
+{
+    try {
+        const cities = await cityRepository.getAll();
+        return cities;
+    } catch (error) {
+        throw new AppError('Unable to fetch the Cities',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
 module.exports = {
     createCity,
     destroyCity,
-    updateCity
+    updateCity,
+    getCities
 }

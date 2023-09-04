@@ -42,8 +42,22 @@ async function updateCity(req,res)
         return res.status(error.statusCode).json(ErrorResponse);
     }
 }
+async function getCities(req,res)
+{
+    try {
+        const cities = await CityService.getCities();
+        SuccessResponse.message = 'Successfully Fetched All the Cities';
+        SuccessResponse.data = cities;
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.message = 'Cannot Proccess the Request'
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
 module.exports = {
     createCity,
     destroyCity,
-    updateCity
+    updateCity,
+    getCities
 }
