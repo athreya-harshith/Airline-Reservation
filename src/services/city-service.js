@@ -63,9 +63,24 @@ async function getCities()
         throw new AppError('Unable to fetch the Cities',StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+
+async function getCity(id)
+{
+    try {
+        const city = await cityRepository.get(id);
+        return city;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND)
+        {
+            throw new AppError('Requested City doesnot exists ',error.statusCode);
+        }
+        throw new AppError('Unable to get the requested City',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
 module.exports = {
     createCity,
     destroyCity,
     updateCity,
-    getCities
+    getCities,
+    getCity
 }
