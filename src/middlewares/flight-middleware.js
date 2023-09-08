@@ -1,6 +1,7 @@
 const {StatusCodes} = require('http-status-codes');
 const {ErrorResponse} = require('../utils/common');
 const AppError = require('../utils/errors/app-error');
+const {CompareTime} = require('../utils/helpers');
 function validateCreateRequest(req,res,next)
 {
     ErrorResponse.message = 'Something went wrong while creating Flight';
@@ -50,4 +51,17 @@ function validateCreateRequest(req,res,next)
     }
     next();
 }
-module.exports = {validateCreateRequest}
+
+let helperMiddlewares = [];
+function checkTimes(req,res,next)
+{
+    if(!CompareTime.compareTimes(req.body.arrivalTime,req.body.departureTime))
+    {
+        ErrorResponse.error = new AppError(['Improper Format Of the data in incoming Request (Arrival Time must be Greater than the Departure Time not found) '],StatusCodes.BAD_REQUEST);
+        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+    }
+    next();
+    
+}
+helperMiddlewares.push(checkTimes);//check this that middlewares can be made as array elements and that array can be used to in routes by exporting the array
+module.exports = {validateCreateRequest,helperMiddlewares}
