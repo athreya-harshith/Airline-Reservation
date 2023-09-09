@@ -6,5 +6,13 @@ class AirportRepository extends CrudRepository
     {
         super(Airport);
     }
+
+    async getAllAirport(filter)
+    {
+        const response = await Airport.findAll({
+            where:filter
+        });
+        return response;
+    }
 }
 module.exports = AirportRepository;

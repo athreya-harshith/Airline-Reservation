@@ -1,8 +1,9 @@
-const {FlightRepository} = require('../repositories');
-const { param } = require('../routes');
+const {FlightRepository,AirportRepository} = require('../repositories');
+const { param, get } = require('../routes');
 const AppError = require('../utils/errors/app-error');
 const {StatusCodes} = require('http-status-codes');
 const flightRepository = new FlightRepository();
+const airportRepository = new AirportRepository();
 const {Op} = require('sequelize');
 async function createFlight(data)
 {
@@ -70,13 +71,26 @@ async function getAllFlights(query)
     try {
         // console.log(customFilter);
         const flight = await flightRepository.getAllFlights(customFilter,sortFilters);
+        // retrieve the airports based on airport id and return it 
         return flight;
     } catch (error) {
         console.log(error);
         throw new AppError('Cannot Fetch the requested Flight',StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
-
+async function getAirportDetails(code)
+{
+    let customFilter = {};
+    customFilter.code = code;
+    try {
+        const airport = await airportRepository.getAllAirport(customFilter);
+        // console.log(airport);
+        return airport;
+    } catch (error) {
+        throw new AppError('Cannot Fetch the requested Flight',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+   
+}
 module.exports = {
     createFlight,
     getAllFlights
