@@ -18,7 +18,7 @@ const { json } = require('sequelize');
 async function createFlight(req,res)
 {
     try {
-        const airport = await FlightService.createFlight({
+        const flight = await FlightService.createFlight({
             flightNumber:req.body.flightNumber,
             airplaneId:req.body.airplaneId,
             departureAirportId:req.body.departureAirportId,
@@ -31,7 +31,7 @@ async function createFlight(req,res)
         });
 
         SuccessResponse.message = 'Successfully Created the Flight';
-        SuccessResponse.data = airport;
+        SuccessResponse.data = flight;
          return res.status(StatusCodes.OK).json(SuccessResponse);
     } catch (error) {
         ErrorResponse.message = 'Something went wrong while creating the Flight'
@@ -40,7 +40,22 @@ async function createFlight(req,res)
     }
 }
 
+async function getAllFlights(req,res)
+{
+    try {
+        // console.log(req.query);
+        const flight = await FlightService.getAllFlights(req.query);
+        SuccessResponse.message = 'Successfully Fetched the Flight';
+        SuccessResponse.data = flight;
+         return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.message = 'Something went wrong while Fetching the Flight'
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
 
 module.exports = {
     createFlight,
+    getAllFlights
 }
