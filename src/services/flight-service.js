@@ -78,7 +78,21 @@ async function getAllFlights(query)
         throw new AppError('Cannot Fetch the requested Flight',StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
-async function getAirportDetails(code)
+async function getFlight(id)
+{
+    try {
+        // console.log(id);
+        const flight = await flightRepository.get(id);
+        return flight;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND)
+        {
+            throw new AppError('Requested Flight doesnot exists ',error.statusCode);
+        }
+        throw new AppError('Unable to get the requested Flight',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+async function getAirportDetails(code)//not used 
 {
     let customFilter = {};
     customFilter.code = code;
@@ -93,5 +107,6 @@ async function getAirportDetails(code)
 }
 module.exports = {
     createFlight,
-    getAllFlights
+    getAllFlights,
+    getFlight
 }

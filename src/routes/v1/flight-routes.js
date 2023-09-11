@@ -6,4 +6,5 @@ const {FlightMiddlewares} = require('../../middlewares');
 router.post('/',FlightMiddlewares.validateCreateRequest,FlightMiddlewares.helperMiddlewares,FlightController.createFlight);
 // /api/v1/flights?trips=BLR-DEL
 router.get('/',FlightController.getAllFlights);
+router.get('/:id',FlightController.getFlight);
 module.exports = router;

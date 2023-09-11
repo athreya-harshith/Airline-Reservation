@@ -6,4 +6,4 @@ const v2Routes = require('./v2');
 router.use('/v1', v1Routes);
 router.use('/v2',v2Routes);
 
-module.exports = router;// must be done as we are using const apiRoute = require('./routes') , in index.js in src
+module.exports = router;// must be done as it will be used : const apiRoute = require('./routes') , in index.js in src
