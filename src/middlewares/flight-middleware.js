@@ -63,5 +63,16 @@ function checkTimes(req,res,next)
     next();
     
 }
+function validateUpdateSeatsRequest(req,res,next)
+{
+    let explanation = [];
+    if(!req.body.seats)
+    {
+        explanation.push('Improper Format Of the data in incoming Request (seats not found) ');
+        ErrorResponse.error = new AppError(explanation,StatusCodes.BAD_REQUEST);
+        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+    }
+    next();
+}
 helperMiddlewares.push(checkTimes);//check this that middlewares can be made as array elements and that array can be used to in routes by exporting the array
-module.exports = {validateCreateRequest,helperMiddlewares}
+module.exports = {validateCreateRequest,helperMiddlewares,validateUpdateSeatsRequest}

@@ -92,6 +92,17 @@ async function getFlight(id)
         throw new AppError('Unable to get the requested Flight',StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+async function updateSeats(data)
+{
+    try {
+        console.log('data.decrease as seen',data.decrease);
+        const response = await flightRepository.updateRemainingSeats(data.flightId,data.seats,data.decrease)
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw new AppError('Cannot Update the seats',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
 async function getAirportDetails(code)//not used 
 {
     let customFilter = {};
@@ -108,5 +119,6 @@ async function getAirportDetails(code)//not used
 module.exports = {
     createFlight,
     getAllFlights,
-    getFlight
+    getFlight,
+    updateSeats
 }
