@@ -1,5 +1,4 @@
 const {FlightRepository,AirportRepository} = require('../repositories');
-const { param, get } = require('../routes');
 const AppError = require('../utils/errors/app-error');
 const {StatusCodes} = require('http-status-codes');
 const flightRepository = new FlightRepository();
