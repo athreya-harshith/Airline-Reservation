@@ -9,7 +9,8 @@ const airport = require('./models/airport');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 //both above are for reading requests that has request body
-app.use('/api',apiRoutes);
+app.use('/api',apiRoutes);//entry point for all api routes
+// app.use('/flightsService/api',apiRoutes);// this is commented because , pathRewrite object in the API gateway rewrites the path
 app.listen(ServerConfig.PORT,()=>{
     console.log(`Server is up and running on the port ${ServerConfig.PORT}`);
     // Logger.info({message:'some logging is begin done',error:"some error caught",label :'some label according to us'});

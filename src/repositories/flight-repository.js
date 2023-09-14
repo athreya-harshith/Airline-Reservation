@@ -56,7 +56,7 @@ class FlightRepository extends CrudRepository
     {
         const transaction = await db.sequelize.transaction();
         try {
-        await db.sequelize.query(addRowLockOnFlights(flightId)); // FOR UPDATE applys a row level lock
+        await db.sequelize.query(addRowLockOnFlights(flightId)); // FOR UPDATE applys a row level lock for the row with flightId mentioned
         const flight = await Flight.findByPk(flightId);
         let flag = parseInt(decrease);
         console.log('flag value as seen',flag);
