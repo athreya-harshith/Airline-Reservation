@@ -3,6 +3,7 @@ const {ErrorResponse} = require('../utils/common');
 const AppError = require('../utils/errors/app-error');
 function validateCreateRequest(req,res,next)
 {
+    console.log('inside the create airplane  middlewares')
     ErrorResponse.message = 'Something went wrong while creating Airplane';
     ErrorResponse.error = new AppError(['Improper Format Of the data in incoming Request (modelNumber not found) '],StatusCodes.BAD_REQUEST);
     if(!req.body.modelNumber)
