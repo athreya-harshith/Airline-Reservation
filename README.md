@@ -131,7 +131,59 @@ DELETE on => localhost:3000/api/v1/airplanes/18
 * To update an Airplane
 * `patch` request on **/api/v1/airplanes/:id**
 * **:id** denotes the id of the Airplane to be updated
-* The key-value pairs mentioned in request-body will be updated
+* The key-value pairs mentioned in request-body will be updated.
+
+* ## Airport Routes
+* Creating an Airport
+* * `POST` request on **/api/v1/airports/**
+* request body 
+```
+{
+    name:Odeyar Airport
+    code:MYS
+    address:Mysore , Karnataka
+    cityId:6
+}
+```
+* Response from server
+```json
+{
+    "success": true,
+    "message": "Successfully Created the Airport",
+    "data": {
+        "id": 12,
+        "name": "Odeyar Airport",
+        "code": "MYS",
+        "address": "Mysore , Karnataka",
+        "cityId": "6",
+        "updatedAt": "2023-10-08T08:03:13.489Z",
+        "createdAt": "2023-10-08T08:03:13.489Z"
+    },
+    "error": {}
+}
+```
+* Retrieving all the Airports
+* `get` request on  **/api/v1/airports/**
+* Response from server
+```json
+{
+    "success": true,
+    "message": "Successfully Fetched All the Airports",
+    "data": [
+        {
+            "id": 12,
+            "name": "Odeyar Airport",
+            "code": "MYS",
+            "address": "Mysore , Karnataka",
+            "cityId": 6,
+            "createdAt": "2023-10-08T08:03:13.000Z",
+            "updatedAt": "2023-10-08T08:03:13.000Z"
+        }
+    ],
+    "error": {}
+}
+```
+
   
     
   
