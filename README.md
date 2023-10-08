@@ -36,3 +36,33 @@
     * col : Integer
     * type :[ECONOMY,PREMIUM_ECONOMY,BUSINESS,FIRST_CLASS]
 
+## API-ROUTES (API-ENDPOINT) 
+* This section contains information regarding the API-ROUTES.
+* ## Airplane Routes
+* Creating Airplane , 
+* `POST` request on **/api/v1/airplanes/**
+* request body 
+```
+{
+    modelNumber:testing101
+    capacity:15
+}
+```
+* Response from Server 
+```json
+{
+    "success": true,
+    "message": "Successfully Created An Airplane",
+    "data": {
+        "id": 18,
+        "modelNumber": "testing101",
+        "capacity": "15",
+        "updatedAt": "2023-10-08T07:28:48.001Z",
+        "createdAt": "2023-10-08T07:28:48.001Z"
+    },
+    "error": {}
+}
+```
+  
+    
+  
