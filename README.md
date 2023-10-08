@@ -63,6 +63,75 @@
     "error": {}
 }
 ```
+* Retrieving All Airplanes
+* `GET` request on  **/api/v1/airplanes/**
+* Response from server
+```json
+{
+    "success": true,
+    "message": "Successfully Retrieved Airplane",
+    "data": [
+        {
+            "id": 1,
+            "modelNumber": "airbus a320",
+            "capacity": 100,
+            "createdAt": "2023-08-30T04:40:00.000Z",
+            "updatedAt": "2023-08-30T04:40:00.000Z"
+        },
+        {
+            "id": 18,
+            "modelNumber": "testing101",
+            "capacity": 15,
+            "createdAt": "2023-10-08T07:28:48.000Z",
+            "updatedAt": "2023-10-08T07:28:48.000Z"
+        }
+    ],
+    "error": {}
+}
+```
+* To get a particular airplane  
+* `GET` request on **/api/v1/airplanes/:id**
+* **:id** is the id of the ariplane to obtain
+* its accessed using `req.params.id`
+* Example ,
+```
+localhost:3000/api/v1/airplanes/18
+```
+* Response from Server
+```json
+{
+    "success": true,
+    "message": "Successfully Retrieved An Airplane",
+    "data": {
+        "id": 18,
+        "modelNumber": "testing101",
+        "capacity": 15,
+        "createdAt": "2023-10-08T07:28:48.000Z",
+        "updatedAt": "2023-10-08T07:28:48.000Z"
+    },
+    "error": {}
+}
+```
+* To delete an Airplane ,
+* `delete` request on **/api/v1/airplanes/:id**
+* **:id** denotes the id of the Airplane to be deleted
+* Example ,
+```
+DELETE on => localhost:3000/api/v1/airplanes/18 
+```
+* Response from server ,
+```json
+{
+    "success": true,
+    "message": "Successfully Deleted An Airplane",
+    "data": 1,
+    "error": {}
+}
+```
+* To update an Airplane
+* `patch` request on **/api/v1/airplanes/:id**
+* **:id** denotes the id of the Airplane to be updated
+* The key-value pairs mentioned in request-body will be updated
   
     
   
