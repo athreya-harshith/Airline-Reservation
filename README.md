@@ -29,6 +29,7 @@
     * departureTime : Integer
     * price : Integer
     * boardingGate : String
+    * totalSeats : Integer (Total Remaining Seats)
 * ## Seat Model
 * The attributes for **Seat Model** are ,
     * airplaneId : Integer
@@ -265,4 +266,147 @@ DELETE on => localhost:3000/api/v1/airports/12
     "error": {}
 }
 ```
-  
+* ## City Routes
+* The only attribute used in the city model is name ,
+* Hence for creating the city , request-body must contain name.
+
+* ## Flight Routes
+* All the API endpoints for **Flights** will be under **/api/v1/filghts**
+* The Flights Service provides transactional features for seat booking using **row level locking** mechanism.
+* To create a Flight , all the below listed fields must be a part of request-body mandatorily ,
+    * flightNumber : String
+    * airplaneId : Integer
+    * departureAirportId : String
+    * arrivalAirportId : String
+    * arrivalTime : Integer
+    * departureTime : Integer
+    * price : Integer
+    * totalSeats : Integer (Total Remaining Seats)
+* To create a flight ,
+* `POST` request on **/api/v1/filghts/**
+* Example ,
+```
+POST on => localhost:3000/api/v1/flights/
+```
+* Request body contents,
+```
+{
+    flightNumber:IN 202
+    airplaneId:1
+    departureAirportId:MUM
+    arrivalAirportId:DEL
+    arrivalTime:2023-10-25 12:30:45 
+    departureTime:2023-10-25 10:15:24
+    price:2250
+    totalSeats:100  
+}
+```
+* Response from server ,
+```json
+{
+    "success": true,
+    "message": "Successfully Created the Flight",
+    "data": {
+        "id": 6,
+        "flightNumber": "IN 202",
+        "airplaneId": "1",
+        "departureAirportId": "MUM",
+        "arrivalAirportId": "DEL",
+        "arrivalTime": "2023-10-25 12:30:45 ",
+        "departureTime": "2023-10-25 10:15:24",
+        "price": "2250",
+        "totalSeats": "100",
+        "updatedAt": "2023-10-09T05:38:05.993Z",
+        "createdAt": "2023-10-09T05:38:05.993Z"
+    },
+    "error": {}
+}
+```
+* To fetch all the flights, 
+* `GET` request on **/api/v1/filghts/**
+* To fetch flights with some **filter** applied, can be done with the **Query Params**
+* Example 
+```
+GET on => localhost:3000/api/v1/flights?trips=DEL-BLR&price=2500-5000&travellers=360&tripDate=2023-09-11&sort=price_ASC,departureTime_DESC
+```
+* Query Params Object
+```
+{
+    trips:DEL-BLR
+    price:2500-5000
+    travellers:360
+    tripDate:2023-09-11
+    sort:price_ASC,departureTime_DESC
+}
+```
+* This object is accessed using `req.query`
+* Response ,
+```json
+{
+    "success": true,
+    "message": "Successfully Fetched the Flight",
+    "data": [
+        {
+            "id": 5,
+            "flightNumber": "US 234",
+            "airplaneId": 8,
+            "departureAirportId": "DEL",
+            "arrivalAirportId": "BLR",
+            "arrivalTime": "2023-09-11T14:50:00.000Z",
+            "departureTime": "2023-09-11T13:00:00.000Z",
+            "price": 4800,
+            "boardingGate": null,
+            "totalSeats": 485,
+            "createdAt": "2023-09-09T03:22:56.000Z",
+            "updatedAt": "2023-09-09T03:22:56.000Z",
+            "airplaneDetail": {
+                "id": 8,
+                "modelNumber": "boeing77",
+                "capacity": 900,
+                "createdAt": "2023-09-03T04:08:54.000Z",
+                "updatedAt": "2023-09-03T04:18:28.000Z"
+            },
+            "departureAirport": {
+                "id": 10,
+                "name": "IGI AIrport",
+                "code": "DEL",
+                "address": "New Delhi",
+                "cityId": 9,
+                "createdAt": "2023-09-07T16:11:38.000Z",
+                "updatedAt": "2023-09-07T16:11:38.000Z",
+                "City": {
+                    "id": 9,
+                    "name": "Delhi",
+                    "createdAt": "2023-09-07T16:10:24.000Z",
+                    "updatedAt": "2023-09-07T16:10:24.000Z"
+                }
+            },
+            "arrivalAirport": {
+                "id": 5,
+                "name": "Kempegowda Airport",
+                "code": "BLR",
+                "address": "Devanahalli",
+                "cityId": 8,
+                "createdAt": "2023-09-07T14:15:04.000Z",
+                "updatedAt": "2023-09-07T14:22:09.000Z",
+                "City": {
+                    "id": 8,
+                    "name": "Bengaluru",
+                    "createdAt": "2023-09-07T14:14:03.000Z",
+                    "updatedAt": "2023-09-07T14:14:03.000Z"
+                }
+            }
+        }
+    ],
+    "error": {}
+}
+```
+* To get a flight with **:id**
+* `GET` request on **/api/v1/filghts/:id**
+* To Update the `totalSeats` of the flight ,
+* The API is **/api/v1/filghts/:id/seats**
+* Using the above API with `PATCH` request.
+* Request Body contains seats key and an optional decrease key
+* If `decrease` is not mentioned the default behaviour is to decrement the seats.
+* If decrease:0 is used then the seats get incremented.
+> This Operation of decreasing the seat is implemented as a transaction using row-level lock
