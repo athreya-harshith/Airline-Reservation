@@ -183,7 +183,86 @@ DELETE on => localhost:3000/api/v1/airplanes/18
     "error": {}
 }
 ```
-
-  
-    
+* Retieving an Airport with the id
+* `GET` request on **/api/v1/airports/:id**
+* **:id** is the id of the airport to obtain
+* Example ,
+```
+GET on => localhost:3000/api/v1/airports/12
+```
+* Response from server
+```json
+{
+    "success": true,
+    "message": "Successfully Fetched the Airport",
+    "data": {
+        "id": 12,
+        "name": "Odeyar Airport",
+        "code": "MYS",
+        "address": "Mysore , Karnataka",
+        "cityId": 6,
+        "createdAt": "2023-10-08T08:03:13.000Z",
+        "updatedAt": "2023-10-08T08:03:13.000Z"
+    },
+    "error": {}
+}
+```
+* Updating an Airport with the given id
+* `PATCH` request on **/api/v1/airports/:id**
+* **:id** is the id of the airport to be updated
+* request-body must contain the fields to be updated as key-value pair.
+* Example 
+```
+PATCH on => localhost:3000/api/v1/airports/12
+```
+* Request Body 
+```
+{
+    address:Mysore , Karnataka , India
+}
+```
+* Response from server , 
+```json
+{
+    "success": true,
+    "message": "Successfully Updated the Airport",
+    "data": [
+        1
+    ],
+    "error": {}
+}
+```
+* Upon retrieving the detaills using `GET` request,
+```json
+{
+    "success": true,
+    "message": "Successfully Fetched the Airport",
+    "data": {
+        "id": 12,
+        "name": "Odeyar Airport",
+        "code": "MYS",
+        "address": "Mysore , Karnataka , India",
+        "cityId": 6,
+        "createdAt": "2023-10-08T08:03:13.000Z",
+        "updatedAt": "2023-10-09T04:22:54.000Z"
+    },
+    "error": {}
+}
+```
+* * To delete an Airport ,
+* `delete` request on **/api/v1/airpports/:id**
+* **:id** denotes the id of the Airport to be deleted
+* Example ,
+```
+DELETE on => localhost:3000/api/v1/airports/12 
+```
+* Response from server ,
+```json
+{
+    "success": true,
+    "message": "Successfully deleted the Airport",
+    "data": 1,
+    "error": {}
+}
+```
   
