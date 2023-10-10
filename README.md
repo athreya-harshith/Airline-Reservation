@@ -410,3 +410,10 @@ GET on => localhost:3000/api/v1/flights?trips=DEL-BLR&price=2500-5000&travellers
 * If `decrease` is not mentioned the default behaviour is to decrement the seats.
 * If decrease:0 is used then the seats get incremented.
 > This Operation of decreasing the seat is implemented as a transaction using row-level lock
+```js
+function addRowLockOnFlights(flightId)
+{
+    return `SELECT * from Flights where Flights.id = ${flightId} FOR UPDATE;`;
+}
+```
+* The above function takes flightId as argument and for that flightId , the lock will be applied.
